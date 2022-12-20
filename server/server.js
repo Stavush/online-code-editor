@@ -15,6 +15,9 @@ const io = new Server(server);
 
 io.on("connection", (socket) => {
   console.log("Socket connected", socketId);
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
 });
 
 // middleware

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./Editor.css";
 import Editor from "@monaco-editor/react";
 
-const CodeEditor = () => {
-  let solution = 'console.log("Hello!")';
-  const [code, setCode] = useState("");
+const CodeEditor = (value) => {
+  const [code, setCode] = useState(value.value);
+  const [solution, setSolution] = useState("");
 
   /*useEffect(() => {
     const init = async () => {
@@ -16,16 +16,14 @@ const CodeEditor = () => {
 
   const handleEditorChange = async (newCode) => {
     await setCode(newCode);
-    console.log({ newCode });
-    console.log({ code });
-    await checkCode();
+    //await checkCode();
   };
 
-  const checkCode = () => {
+  /*const checkCode = () => {
     if (code !== "" && code === solution) {
       console.log("You did it!!");
     }
-  };
+  };*/
 
   return (
     <div id="editor-container">

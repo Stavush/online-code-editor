@@ -14,13 +14,7 @@ const SignIn = ({ username, setUsername, clientType, setClientType }) => {
     }
     navigate(`/Lobby`, { state: { username, clientType } });
   };
-  {
-    /**/
-  }
 
-  {
-    /**/
-  }
   return (
     <div className="signin-container">
       <h1>Hi, welcome to on-line coding</h1>

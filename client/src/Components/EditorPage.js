@@ -4,25 +4,26 @@ import { initSocket } from "../socket";
 import CodeEditor from "./CodeEditor";
 import "./Editor.css";
 import ACTIONS from "../Actions";
+import { io } from "socket.io-client";
 
-const EditorPage = ({ username, item }) => {
-  console.log("Editorpage item:", item);
-
+const EditorPage = (props) => {
+  //console.log("code from editor page:", code);
+  console.log({ props });
   const socketRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
+    let sessionId = props.sessionId;
     const init = async () => {
       socketRef.current = await initSocket();
-      /*socketRef.current.emit(ACTIONS.JOIN, {
+      socketRef.current.emit(ACTIONS.JOIN, {
         sessionId,
         username: location.state?.username,
-      });*/
+      });
     };
     init();
   }, []);
 
-  const [code, setCode] = useState("");
   const [users, setUsers] = useState([
     { socketId: 1, username: "Stav" },
     { socketId: 2, username: "Yahel" },
@@ -30,7 +31,7 @@ const EditorPage = ({ username, item }) => {
 
   return (
     <div id="editor-page">
-      <h2>{item.title}</h2>
+      <h2>{props.title}</h2>
       <div className="editor-page-bottom">
         <div className="sidebar">
           <p>Connected</p>
@@ -40,7 +41,7 @@ const EditorPage = ({ username, item }) => {
             ))}
           </ul>
         </div>
-        <CodeEditor code={code} />
+        <CodeEditor value={props.code} />
       </div>
     </div>
   );

@@ -10,11 +10,15 @@ import EditorPage from "./Components/EditorPage";
 import AddCodeBlock from "./pages/AddCodeBlock";
 import SignIn from "./pages/SignIn";
 import { useState } from "react";
-//import io from "socket.io-client";
 
 function App() {
   const [username, setUsername] = useState("");
   const [clientType, setClientType] = useState("");
+  const [title, setTitle] = useState("");
+  const [code, setCode] = useState("");
+  const [wasEntered, setWasEntered] = useState(false);
+  const [solution, setSolution] = useState("");
+  const [sessionId, setSessionId] = useState("");
 
   return (
     <div className="App">
@@ -33,9 +37,39 @@ function App() {
           ></Route>
           <Route
             path="/Lobby"
-            element={<Lobby username={username} clientType={clientType} />}
+            element={
+              <Lobby
+                username={username}
+                clientType={clientType}
+                title={title}
+                setTitle={setTitle}
+                code={code}
+                setCode={setCode}
+                wasEntered={wasEntered}
+                setWasEntered={setWasEntered}
+                solution={solution}
+                setSolution={setSolution}
+              />
+            }
           ></Route>
-          <Route path="/editor/:sessionId" element={<EditorPage />}></Route>
+          <Route
+            path="/editor"
+            element={
+              <EditorPage
+                username={username}
+                clientType={clientType}
+                title={title}
+                setTitle={setTitle}
+                code={code}
+                setCode={setCode}
+                wasEntered={wasEntered}
+                setWasEntered={setWasEntered}
+                solution={solution}
+                setSolution={setSolution}
+                sessionId={sessionId}
+              />
+            }
+          ></Route>
           <Route path="/codeblock/new" element={<AddCodeBlock />}></Route>
         </Routes>
       </BrowserRouter>

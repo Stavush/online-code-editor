@@ -2,11 +2,20 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Lobby = ({ username, clientType }) => {
+const Lobby = ({
+  username,
+  clientType,
+  title,
+  setTitle,
+  code,
+  setCode,
+  wasEntered,
+  setWasEntered,
+  solution,
+  setSolution,
+}) => {
   const navigate = useNavigate();
   const [codeblocksArray, setCodeblocksArray] = useState([]);
-
-  console.log("Enter Lobby", username, clientType);
 
   useEffect(() => {
     const getCodeBlocks = async () => {
@@ -19,15 +28,27 @@ const Lobby = ({ username, clientType }) => {
     getCodeBlocks();
   }, []);
 
-  const onAddCodeBlock = () => {
-    //navigate(`/codeblock/new`, { state: { username, clientType } });
-  };
+  async function onAddCodeBlock() {
+    await navigate(`/codeblock/new`, { state: { username, clientType } });
+  }
 
   async function onCodeBlockNameClick(item) {
-    sessionId, { item });
-    const sessionId = item._id;
+    await setTitle(item.title);
+    await setCode(item.code);
+    await setWasEntered(item.wasEntered);
+    await setSolution(item.solution);
+    console.log("Lobby code", code);
+    let sessionId = await item._id;
     console.log(sessionId);
-    await navigate(`/editor/:sessionId`, { state: { username, ite, sessionId } });
+    await navigate(`/editor`, {
+      username,
+      clientType,
+      title,
+      code,
+      wasEntered,
+      solution,
+      sessionId,
+    });
   }
 
   return (
@@ -37,7 +58,7 @@ const Lobby = ({ username, clientType }) => {
       <div className="blocks-container">
         <ul className="code-block-names">
           {clientType === "Mentor" && (
-            <li className="code-block" onClick={onAddCodeBlock()}>
+            <li className="code-block" onClick={() => onAddCodeBlock()}>
               Add a new code block
             </li>
           )}
