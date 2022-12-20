@@ -1,38 +1,44 @@
 import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
 import Lobby from "./Components/Lobby";
-import Editor from "./Components/Editor";
+import EditorPage from "./Components/EditorPage";
+import AddCodeBlock from "./pages/AddCodeBlock";
+import SignIn from "./pages/SignIn";
 import { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
+//import io from "socket.io-client";
 
 function App() {
-  //const [isMentor, setIsMentor] = useState(true);
+  const [username, setUsername] = useState("");
+  const [clientType, setClientType] = useState("");
+
   return (
     <div className="App">
-      <h1>Hi, welcome to on-line coding</h1>
-      <Form>
-        <Row>
-          <Col>
-            <Form.Control placeholder="Your Name" />
-          </Col>
-          <Col>
-            <Form.Select aria-label="Default select example">
-              <option>I'm the...</option>
-              <option value="Mentor">Mentor</option>
-              <option value="Student">Student</option>
-            </Form.Select>
-          </Col>
-        </Row>
-        <Row>
-          <Button type="submit">Button</Button>
-        </Row>
-      </Form>
-
-      <Lobby />
-
-      <Editor />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <SignIn
+                username={username}
+                setUsername={setUsername}
+                clientType={clientType}
+                setClientType={setClientType}
+              />
+            }
+          ></Route>
+          <Route
+            path="/Lobby"
+            element={<Lobby username={username} clientType={clientType} />}
+          ></Route>
+          <Route path="/editor/:sessionId" element={<EditorPage />}></Route>
+          <Route path="/codeblock/new" element={<AddCodeBlock />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import React from "react";
 import Editor from "./Editor";
 
-const CodeBlock = (title) => {
+const CodeBlock = (item) => {
   return (
     <div id="codeblock-container">
-      <h3 id="title">{title}</h3>
+      <h3 id="title">{item.title}</h3>
       <Editor />
     </div>
   );

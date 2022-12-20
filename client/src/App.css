@@ -1,15 +1,40 @@
-* {
+body {
   background-color: #2f3640;
-  color: #f5f6fa;
 }
 
 .App {
+  background-color: #2f3640;
   padding: 5%;
-  width: 80%;
   margin: auto;
 }
 
+.enter-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+input,
+select {
+  width: 25%;
+}
 button {
+  color: #fff;
+  background-color: #487eb0;
+  border: #fff 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+h1,
+h2,
+h5,
+li {
+  color: #fff;
+}
+
+.code-block {
+  color: #fff;
   background-color: #487eb0;
   border: #fff 1px solid;
   border-radius: 5px;
@@ -19,12 +44,13 @@ button {
   margin: 1rem;
 }
 
-button:hover {
+button:hover,
+li:hover {
   background-color: #273c75;
   cursor: pointer;
 }
 
-ul {
+.code-block-names {
   border: 0px;
   background-color: #1e272e;
   border-radius: 10px;
@@ -35,18 +61,15 @@ ul {
   justify-items: center;
 }
 
-li {
-  background-color: #487eb0;
-  border: #fff 1px solid;
-  border-radius: 5px;
-  width: 25%;
-  min-width: 200px;
-  padding: 5px;
-  margin: 1rem;
+.code-block {
   font-weight: bold;
 }
 
-li:hover {
-  background-color: #273c75;
-  cursor: pointer;
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20vw;
+  padding: 5px;
+  margin-bottom: 10px;
 }
