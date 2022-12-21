@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import CodeEditor from "../Components/CodeEditor";
 import "./AddCodeBlock.css";
 import { useNavigate } from "react-router-dom";
+import { backendClient } from "../clients";
 import axios from "axios";
 
 const AddCodeBlock = ({ username, clientType }) => {
@@ -17,7 +18,7 @@ const AddCodeBlock = ({ username, clientType }) => {
     console.log({ code });
     setWasEntered(false);
     try {
-      const res = await axios.post("http://localhost:8080/api/codeblocks/new", {
+      const res = await backendClient.post("/codeblocks/new", {
         title: title,
         code: code,
         wasEntered: wasEntered,

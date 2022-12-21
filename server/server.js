@@ -6,6 +6,8 @@ const { Server } = require("socket.io");
 require("dotenv").config();
 const Codeblock = require("./db/codeblockSchema.js");
 const ACTIONS = require("../client/src/Actions");
+const path = require("path");
+const codeblockRoutes = require("./routes/codeblock_routes.js");
 
 // app config
 const app = express();
@@ -27,26 +29,10 @@ app.use(cors());
 //DB config
 mongoose.set("strictQuery", true);
 mongoose.connect(process.env.MONGODB_URI);
-const db = mongoose.connection;
+const connection = mongoose.connection;
 
-db.once("open", () => {
-  console.log("DB connected");
-
-  const codeblockCollection = db.collection("CodeblockModel");
-  const stream = codeblockCollection.watch();
-  stream.on("change", (data) => {
-    console.log("The change", data);
-
-    if (data.operationType === "insert") {
-      const codeblockContent = data.fullDocument;
-      pusher.trigger("messages", "inserted", {
-        title: codeblockContent.title,
-        code: codeblockContent.code,
-        wasEntered: codeblockContent.wasEntered,
-        solution: codeblockContent.solution,
-      });
-    }
-  });
+connection.once("open", () => {
+  console.log("MongoDB database connected");
 });
 
 app.get("/", (req, res) => {
@@ -54,7 +40,7 @@ app.get("/", (req, res) => {
 });
 
 // Get all code blocks
-app.get("/api/codeblocks/all", (req, res) => {
+/*app.get("/api/codeblocks/all", (req, res) => {
   Codeblock.find((err, data) => {
     if (err) {
       res.status(500).send(err);
@@ -79,7 +65,9 @@ app.post("/api/codeblocks/new", async (req, res) => {
   } catch (err) {
     res.status(500).send(err);
   }
-});
+});*/
+
+app.use("/api/codeblocks", codeblockRoutes);
 
 server.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);

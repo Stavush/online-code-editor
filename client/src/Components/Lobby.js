@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { backendClient } from "../clients";
 
 const Lobby = ({
   username,
@@ -20,7 +21,7 @@ const Lobby = ({
   useEffect(() => {
     const getCodeBlocks = async () => {
       try {
-        const res = await axios("http://localhost:8080/api/codeblocks/all");
+        const res = await backendClient.get("/codeblocks/all");
         console.log(res);
         setCodeblocksArray(res.data);
       } catch (err) {}
@@ -58,7 +59,7 @@ const Lobby = ({
       <div className="blocks-container">
         <ul className="code-block-names">
           {clientType === "Mentor" && (
-            <li className="code-block" onClick={() => onAddCodeBlock()}>
+            <li className="code-block-add-btn" onClick={() => onAddCodeBlock()}>
               Add a new code block
             </li>
           )}

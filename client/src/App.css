@@ -42,6 +42,24 @@ li {
   min-width: 200px;
   padding: 5px;
   margin: 1rem;
+  font-weight: bold;
+}
+
+.code-block-add-btn {
+  color: #fff;
+  background-color: #10ac84;
+  border: #fff 1px solid;
+  border-radius: 5px;
+  width: 25%;
+  min-width: 200px;
+  padding: 5px;
+  margin: 1rem;
+  font-weight: bold;
+}
+
+.code-block-add-btn:hover {
+  background-color: #1dd1a1;
+  color: #222f3e;
 }
 
 button:hover,
@@ -59,10 +77,6 @@ li:hover {
   list-style-type: none;
   align-content: center;
   justify-items: center;
-}
-
-.code-block {
-  font-weight: bold;
 }
 
 img {
