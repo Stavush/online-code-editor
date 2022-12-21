@@ -33,6 +33,7 @@ const connection = mongoose.connection;
 
 connection.once("open", () => {
   console.log("MongoDB database connected");
+  app.use("/api/codeblocks", codeblockRoutes);
 });
 
 app.get("/", (req, res) => {
@@ -66,8 +67,6 @@ app.post("/api/codeblocks/new", async (req, res) => {
     res.status(500).send(err);
   }
 });*/
-
-app.use("/api/codeblocks", codeblockRoutes);
 
 server.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
