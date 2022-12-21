@@ -41,34 +41,6 @@ app.get("/", (req, res) => {
   res.status(200).send("Healthy");
 });
 
-// Get all code blocks
-/*app.get("/api/codeblocks/all", (req, res) => {
-  Codeblock.find((err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
-});
-
-// Add a new code block
-app.post("/api/codeblocks/new", async (req, res) => {
-  const codeblockContent = req.body;
-  const newCodeBlock = new Codeblock({
-    title: codeblockContent.title,
-    code: codeblockContent.code,
-    wasEntered: codeblockContent.wasEntered,
-    solution: codeblockContent.solution,
-  });
-  try {
-    const savedCodeBlock = await newCodeBlock.save();
-    res.status(201).json(savedCodeBlock);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});*/
-
 server.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);
 });
