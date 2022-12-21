@@ -29,9 +29,7 @@ app.use(cors());
 //DB config
 mongoose.set("strictQuery", true);
 mongoose.connect(process.env.MONGODB_URI).catch((error) => handleError(error));
-mongoose.connection.on("error", (err) => {
-  logError(err);
-});
+
 const connection = mongoose.connection;
 
 connection.once("open", () => {
