@@ -1,0 +1,19 @@
+{
+  "name": "online-code-editor",
+  "version": "1.0.0",
+  "description": "- JavaScript\r - React\r - Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stavush/online-code-editor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stavush/online-code-editor/issues"
+  },
+  "homepage": "https://github.com/Stavush/online-code-editor#readme"
+}
