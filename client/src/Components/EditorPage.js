@@ -26,7 +26,7 @@ const EditorPage = (props) => {
 
   const [users, setUsers] = useState([
     { socketId: 1, username: "Stav" },
-    { socketId: 2, username: "Yahel" },
+    { socketId: 2, username: "Shir" },
   ]);
 
   return (
