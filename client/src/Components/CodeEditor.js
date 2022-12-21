@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Editor.css";
 import Editor from "@monaco-editor/react";
 
 const CodeEditor = (value) => {
   const [code, setCode] = useState(value.value);
-  const [solution, setSolution] = useState("");
+  //const [solution, setSolution] = useState("");
 
   /*useEffect(() => {
     const init = async () => {

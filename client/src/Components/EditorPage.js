@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+//import { useLocation } from "react-router-dom";
 import { initSocket } from "../socket";
 import CodeEditor from "./CodeEditor";
 import "./Editor.css";
 import ACTIONS from "../Actions";
-import { io } from "socket.io-client";
+//import { io } from "socket.io-client";
 
 const EditorPage = (props) => {
   //console.log("code from editor page:", code);
   console.log({ props });
   const socketRef = useRef(null);
-  const location = useLocation();
+  //const location = useLocation();
 
   useEffect(() => {
     let sessionId = props.sessionId;
@@ -18,11 +18,12 @@ const EditorPage = (props) => {
       socketRef.current = await initSocket();
       socketRef.current.emit(ACTIONS.JOIN, {
         sessionId,
-        username: location.state?.username,
+        //username: location.state.username,
       });
+      setUsers([]);
     };
     init();
-  }, []);
+  }, [props.sessionId]);
 
   const [users, setUsers] = useState([
     { socketId: 1, username: "Stav" },

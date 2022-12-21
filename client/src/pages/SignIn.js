@@ -18,7 +18,7 @@ const SignIn = ({ username, setUsername, clientType, setClientType }) => {
   return (
     <div className="signin-container">
       <h1>Hi, welcome to on-line coding</h1>
-      <img src={WelcomImage} />
+      <img alt="welcome-img" src={WelcomImage} />
       <Form className="enter-form">
         <Form.Control
           placeholder="Your Name"

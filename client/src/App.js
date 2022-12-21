@@ -1,10 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  BrowserRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Lobby from "./Components/Lobby";
 import EditorPage from "./Components/EditorPage";
 import AddCodeBlock from "./pages/AddCodeBlock";
@@ -18,11 +13,11 @@ function App() {
   const [code, setCode] = useState("");
   const [wasEntered, setWasEntered] = useState(false);
   const [solution, setSolution] = useState("");
-  const [sessionId, setSessionId] = useState("");
+  const sessionId = "";
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route
             path="/"
@@ -72,7 +67,7 @@ function App() {
           ></Route>
           <Route path="/codeblock/new" element={<AddCodeBlock />}></Route>
         </Routes>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

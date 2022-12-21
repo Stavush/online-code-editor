@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import CodeEditor from "../Components/CodeEditor";
@@ -15,6 +15,7 @@ const AddCodeBlock = ({ username, clientType }) => {
 
   const onCodeBlockSubmit = async () => {
     console.log({ code });
+    setWasEntered(false);
     try {
       const res = await axios.post("http://localhost:8080/api/codeblocks/new", {
         title: title,
