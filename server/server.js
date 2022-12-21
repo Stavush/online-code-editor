@@ -28,14 +28,26 @@ app.use(cors());
 
 //DB config
 mongoose.set("strictQuery", true);
-mongoose.connect(process.env.MONGODB_URI).catch((error) => handleError(error));
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-const connection = mongoose.connection;
+connectDB();
 
-connection.once("open", () => {
+mongoose.connection.once("open", () => {
   console.log("MongoDB database connected");
   app.use("/api/codeblocks", codeblockRoutes);
 });
+
+// not sure if the block below will work
+mongoose.connection.on("error", (err) => {
+  console.log(err);
+});
+/////
 
 app.get("/", (req, res) => {
   res.status(200).send("Healthy");
