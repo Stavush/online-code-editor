@@ -30,4 +30,20 @@ codeblockRoutes.route("/new").post(async (req, res) => {
   }
 });
 
+// Edit the code of an existing codeblock
+/*codeblockRoutes.route("/edit/:id").post(async (req, res) => {
+  let id = req.body.id;
+  let code = req.body.code;
+  try {
+    Codeblock.updateOne({
+      {title:""},
+      {
+        $set: {code: ''}
+      }
+    })
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});*/
+
 module.exports = codeblockRoutes;

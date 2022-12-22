@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-//import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { backendClient } from "../clients";
 
@@ -14,6 +13,8 @@ const Lobby = ({
   setWasEntered,
   solution,
   setSolution,
+  sessionId,
+  setSessionId,
 }) => {
   const navigate = useNavigate();
   const [codeblocksArray, setCodeblocksArray] = useState([]);
@@ -22,7 +23,6 @@ const Lobby = ({
     const getCodeBlocks = async () => {
       try {
         const res = await backendClient.get("/codeblocks/all");
-        console.log(res);
         setCodeblocksArray(res.data);
       } catch (err) {}
     };
@@ -30,17 +30,16 @@ const Lobby = ({
   }, []);
 
   async function onAddCodeBlock() {
-    await navigate(`/codeblock/new`, { state: { username, clientType } });
+    await navigate(`/codeblocks/new`, { state: { username, clientType } });
   }
 
   async function onCodeBlockNameClick(item) {
+    await setSessionId(item._id);
     await setTitle(item.title);
     await setCode(item.code);
     await setWasEntered(item.wasEntered);
     await setSolution(item.solution);
-    console.log("Lobby code", code);
-    let sessionId = await item._id;
-    console.log(sessionId);
+
     await navigate(`/editor`, {
       username,
       clientType,
@@ -59,7 +58,11 @@ const Lobby = ({
       <div className="blocks-container">
         <ul className="code-block-names">
           {clientType === "Mentor" && (
-            <li className="code-block-add-btn" onClick={() => onAddCodeBlock()}>
+            <li
+              className="code-block-add-btn"
+              id="add-btn"
+              onClick={() => onAddCodeBlock()}
+            >
               Add a new code block
             </li>
           )}
@@ -67,7 +70,7 @@ const Lobby = ({
             return (
               <li
                 className="code-block"
-                id={item._id}
+                key={item.title.split(" ").join("-")}
                 onClick={() => onCodeBlockNameClick(item)}
               >
                 {item.title}

@@ -22,7 +22,7 @@ button {
   color: #fff;
   background-color: #487eb0;
   border: #fff 1px solid;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 5px;
 }
 
@@ -68,6 +68,12 @@ li:hover {
   cursor: pointer;
 }
 
+li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .code-block-names {
   border: 0px;
   background-color: #1e272e;
@@ -86,4 +92,90 @@ img {
   width: 20vw;
   padding: 5px;
   margin-bottom: 10px;
+}
+
+.editor {
+  border: 1px solid #fff;
+  padding: 2px;
+}
+
+.editor-page-bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  width: 25%;
+  min-width: 150px;
+  color: #fff;
+  background-color: #487eb0;
+}
+
+p {
+  margin-top: 0;
+  background-color: #000;
+}
+
+.connected-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.connected-user {
+  color: #fff;
+  background-color: #34495e;
+  border: #fff 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 1rem;
+  margin-top: 5px;
+}
+
+.connected-user:hover {
+  background-color: #273c75;
+}
+
+.leave-btn {
+  background-color: #e84118;
+  border: none;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.leave-btn:hover {
+  background-color: #c23616;
+}
+
+.mentor-badge {
+  background-color: #95a5a6;
+  font-size: small;
+  width: fit-content;
+  border-radius: 5px;
+  padding: 2px;
+  font-weight: bold;
+}
+
+.student-badge {
+  background-color: #9b59b6;
+  font-size: small;
+  width: fit-content;
+  border-radius: 5px;
+  padding: 2px;
+  font-weight: bold;
+}
+
+.add-code-block-container {
+  color: #fff;
+  width: 60%;
+}
+
+.add-code-block-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.add-code-block-form > button {
+  width: 150px;
 }

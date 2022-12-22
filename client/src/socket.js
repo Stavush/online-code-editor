@@ -5,8 +5,8 @@ export const initSocket = async () => {
     "force new connection": true,
     reconnectionAttempt: "Infinity",
     timeout: 10000,
-    transport: ["wevsocket"],
+    transport: ["websocket"],
   };
 
-  return io("http://localhost:8080", options);
+  return io(process.env.REACT_APP_BACKEND_BASE_URL, options);
 };

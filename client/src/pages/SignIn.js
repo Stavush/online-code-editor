@@ -8,11 +8,10 @@ const SignIn = ({ username, setUsername, clientType, setClientType }) => {
   const navigate = useNavigate();
 
   const signIn = () => {
-    console.log(username, clientType);
     if (username !== "" && clientType !== "") {
       console.log("Signed in successfully");
+      navigate(`/Lobby`, { state: { username, clientType } });
     }
-    navigate(`/Lobby`, { state: { username, clientType } });
   };
 
   return (
@@ -30,6 +29,7 @@ const SignIn = ({ username, setUsername, clientType, setClientType }) => {
           id="type-input"
           aria-label="Default select example"
           onChange={(e) => setClientType(e.target.value)}
+          required
         >
           <option>I'm the...</option>
           <option value="Mentor">Mentor</option>
