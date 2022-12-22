@@ -5,7 +5,6 @@ import CodeEditor from "../Components/CodeEditor";
 import "./AddCodeBlock.css";
 import { useNavigate } from "react-router-dom";
 import { backendClient } from "../clients";
-import axios from "axios";
 
 const AddCodeBlock = ({ username, clientType }) => {
   const navigate = useNavigate();
