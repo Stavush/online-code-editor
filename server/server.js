@@ -12,16 +12,63 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const server = http.createServer(app);
 
-// attach the server to socket.io
+// connect the server to socket.io
 const io = new Server(server);
+
+const userSocketMap = {};
+
+const getAllSessionUsers = (sessionId) => {
+  return ([...io.sockets.adapter.rooms.get(sessionId)] || []).map(
+    (socketId) => {
+      return {
+        socketId,
+        username: userSocketMap[socketId],
+      };
+    }
+  );
+};
 
 // create a new connection
 io.on("connection", (socket) => {
   console.log("A user connected", socket.id);
+  // A user joins the session
+  socket.on(ACTIONS.JOIN, ({ sessionId, username }) => {
+    userSocketMap[socket.id] = username;
+    console.log(userSocketMap);
+    socket.join(sessionId);
+    const users = getAllSessionUsers(sessionId);
+    users.forEach(({ socketId }) => {
+      io.to(socketId).emit(ACTIONS.JOINED, {
+        users,
+        username,
+        socketId: socket.id,
+      });
+    });
+  });
+
+  // A user changes the code
+  socket.on(ACTIONS.CODE_CHANGE, ({ sessionId, code }) => {
+    socket.in(sessionId).emit(ACTIONS.CODE_CHANGE, { code });
+  });
+
+  socket.on(ACTIONS.SYNC_CODE, ({ sessionId, code }) => {
+    io.to(sessionId).emit(ACTIONS.CODE_CHANGE, { code });
+  });
+
   socket.on("disconnect", () => {
-    console.log("A user disconnected");
+    const rooms = [...socket.rooms];
+    rooms.forEach((sessionId) => {
+      socket.in(sessionId).emit(ACTIONS.DISCONNECTED, {
+        username: userSocketMap[socket.id],
+        socketId: socket.id,
+      });
+    });
+    delete userSocketMap[socket.id];
+    socket.leave();
   });
 });
+
+//
 
 // middleware
 app.use(express.json());
@@ -41,7 +88,7 @@ connectDB();
 
 mongoose.connection.once("open", () => {
   console.log("MongoDB database connected");
-  app.use("/api/codeblocks", codeblockRoutes);
+  app.use("/codeblocks", codeblockRoutes);
 });
 
 mongoose.connection.on("error", (err) => {

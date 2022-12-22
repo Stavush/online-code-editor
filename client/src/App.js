@@ -50,7 +50,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/editor"
+            path="/editor/:sessionId"
             element={
               <EditorPage
                 username={username}

@@ -13,11 +13,11 @@ const EditorPage = ({
   sessionId,
 }) => {
   const socketRef = useRef(null);
-
-  const [users, setUsers] = useState([
+  const [users, setUsers] = useState([]);
+  /*const [users, setUsers] = useState([
     { socketId: 1, name: "Stav", clientType: "Mentor" },
     { socketId: 2, name: "Shir", clientType: "Student" },
-  ]);
+  ]);*/
 
   useEffect(() => {
     const init = async () => {
@@ -31,6 +31,20 @@ const EditorPage = ({
       socketRef.current.emit(ACTIONS.JOIN, {
         sessionId,
         username,
+      });
+
+      socketRef.current.on(ACTIONS.JOINED, ({ users, name, socketId }) => {
+        if (name !== username) {
+          console.log(`${name} joined the session`);
+        }
+        setUsers(users);
+      });
+
+      socketRef.current.on(ACTIONS.DISCONNECTED, ({ name, socketId }) => {
+        console.log(`${name} left the session`);
+        setUsers((prev) => {
+          return prev.filter((user) => user.socketId !== socketId);
+        });
       });
     };
     init();
@@ -51,18 +65,18 @@ const EditorPage = ({
           <p>Connected</p>
           <ul className="connected-list">
             {users.map((user) => (
-              <li className="connected-user" key={user.name}>
-                {user.name}
-                {/*user.clientType === "Mentor" ? (
+              <li className="connected-user" key={user.username}>
+                {user.username}
+                {user.clientType === "Mentor" ? (
                   <div className="mentor-badge">read only</div>
                 ) : (
                   <div className="student-badge">read & write</div>
-                )*/}
+                )}
               </li>
             ))}
           </ul>
         </div>
-        <CodeEditor value={code} />
+        <CodeEditor value={code} sessionId={sessionId} />
       </div>
     </div>
   );

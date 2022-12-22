@@ -30,7 +30,7 @@ const Lobby = ({
   }, []);
 
   async function onAddCodeBlock() {
-    await navigate(`/codeblocks/new`, { state: { username, clientType } });
+    await navigate("/codeblocks/new", { state: { username, clientType } });
   }
 
   async function onCodeBlockNameClick(item) {
@@ -40,7 +40,7 @@ const Lobby = ({
     await setWasEntered(item.wasEntered);
     await setSolution(item.solution);
 
-    await navigate(`/editor`, {
+    await navigate("/editor/:sessionId", {
       username,
       clientType,
       title,

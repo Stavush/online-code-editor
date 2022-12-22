@@ -13,6 +13,18 @@ codeblockRoutes.route("/all").get(async (req, res) => {
   });
 });
 
+// Get a code block by id
+codeblockRoutes.route("/:sessionId").get(async (req, res) => {
+  Codeblock.findById(req.params.sessionId, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      console.log(data);
+      res.status(200).send(data);
+    }
+  });
+});
+
 // Add a new code block
 codeblockRoutes.route("/new").post(async (req, res) => {
   const codeblockContent = req.body;
